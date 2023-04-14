@@ -7,10 +7,10 @@ import torchvision.transforms as transforms
 from torchvision.datasets import ImageFolder
 
 # Define relevant variables for the ML task
-batch_size = 1
-num_classes = 2
+batch_size = 60
+num_classes = 11
 learning_rate = 0.001
-num_epochs = 20
+num_epochs = 25
 
 # Device will determine whether to run the training on GPU or CPU.
 # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -18,30 +18,14 @@ device="cpu"
 
 # Use transforms.compose method to reformat images for modeling,
 # and save to variable all_transforms for later use
-all_transforms = transforms.Compose([transforms.Resize((32,32)),
+all_transforms = transforms.Compose([transforms.Resize((256,144)),
                                      transforms.ToTensor(),
-                                     transforms.Normalize(mean=[0.4914, 0.4822, 0.4465],
-                                                          std=[0.2023, 0.1994, 0.2010])
+                                     transforms.Normalize((0,0,0),(1,1,1))
                                      ])
 
 # path = "./training_data"
-train_dataset = ImageFolder(root="./training_data", transform=all_transforms)
-test_dataset = ImageFolder(root="./testing_data", transform=all_transforms)
-# dataloader = torch.utils.data.DataLoader(dataset, batch_size=10, shuffle=True)
-# Create Training dataset
-# train_dataset = torchvision.datasets.CIFAR10(root = './data',
-#                                              train = True,
-#                                              transform = all_transforms,
-#                                              download = True)
-
-
-# # Create Testing dataset
-# test_dataset = torchvision.datasets.CIFAR10(root = './data',
-#                                             train = False,
-#                                             transform = all_transforms,
-#                                             download=True)
-
-# Instantiate loader objects to facilitate processing
+train_dataset = ImageFolder(root="./train", transform=all_transforms)
+test_dataset = ImageFolder(root="./test", transform=all_transforms)
 train_loader = torch.utils.data.DataLoader(dataset = train_dataset,
                                            batch_size = batch_size,
                                            shuffle = True)
@@ -65,7 +49,7 @@ class ConvNeuralNet(nn.Module):
         self.conv_layer4 = nn.Conv2d(in_channels=64, out_channels=32, kernel_size=3)
         self.max_pool2 = nn.MaxPool2d(kernel_size = 2, stride = 2)
         
-        self.fc1 = nn.Linear(800, 128)
+        self.fc1 = nn.Linear(64416, 128)
         self.relu1 = nn.ReLU()
         self.fc2 = nn.Linear(128, num_classes)
     
@@ -116,6 +100,7 @@ for epoch in range(num_epochs):
         # print(i)
 
     print('Epoch [{}/{}], Loss: {:.4f}'.format(epoch+1, num_epochs, loss.item()))
+    torch.save(model.state_dict(), 'model_epochs/model_epoch_{}'.format(epoch+1))
 
 
 with torch.no_grad():
