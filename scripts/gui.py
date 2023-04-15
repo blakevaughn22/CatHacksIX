@@ -9,7 +9,9 @@ import nn
 import script
 import test
 import imageResize
+import game
 
+num = 1
 
 
 def main():
@@ -31,11 +33,17 @@ def main():
         width=20, font = my_font2, command = lambda:upload_file(my_w))
     b1.grid(row=4,column=1)
     b1.place(relx = 0.5, rely = 0.8, anchor= CENTER) 
-    
-    b3 = tk.Button(my_w, text='Go!', bg = 'green', height = 3,
+
+    b4= tk.Button(my_w, text='Play Game', bg = 'purple', height = 3,
+        width=20, font = my_font2, command = lambda:play_game())
+    b4.grid(row=4,column=1)
+    b4.place(relx = 0.2, rely = 0.5, anchor= CENTER) 
+
+    b3 = tk.Button(my_w, text='Go!',height = 3,bg='green',
         width=20,font = my_font2, command = lambda:go())
     b3.grid(row=1, column=1)
     b3.place(relx = 0.5, rely = 0.2, anchor= CENTER) 
+
 
     filename = '../GUI/Images/image_icon.png'
     img=Image.open(filename) # read the image file
@@ -57,6 +65,54 @@ def main():
     b2.place(relx = 0.8, rely = 0.5, anchor= CENTER) 
 
     my_w.mainloop()  # Keep the window open 
+
+def play_game():
+    my_font1=('Comic Sans MS', 18, 'bold')
+    my_font2=('Comic Sans MS', 12)
+    my_font3=('Comic Sans MS', 14)
+    # Execute tkinter
+    root = tk.Toplevel()
+   
+    # Adjust size
+    root.geometry("1000x700")
+
+    lbl1 = tk.Label(root, text = "Question: ")
+    lbl1.pack()
+
+    inputtxt = tk.Text(root,
+                   height = 5,
+                   width = 20)
+    
+
+    inputtxt.pack()
+    lbl = tk.Label(root, text = "")
+    def getInput():
+        inp = inputtxt.get(1.0, "end-1c")
+        ques = lbl1.cget("text")
+        ans = game.check(ques, inp)
+        if (ans):
+            lbl.config(text = "Correct!")
+        else:
+            lbl.config(text = "Incorrect!")
+
+    def ask():
+        ques = game.getQuestion()
+        lbl1.config(text = "Question: " + ques)
+        lbl.config(text = "")
+
+    printButton = tk.Button(root,
+                        text = "Check", 
+                        command = getInput)
+    printButton.pack()
+
+    askButton = tk.Button(root,
+                        text = "Ask", 
+                        command = ask)
+    askButton.pack()
+    lbl.pack()
+    root.mainloop()
+    ask()
+
 
 
 def upload_file(my_w):
@@ -132,7 +188,7 @@ def go():
 
     l5 = tk.Label(root,text=pred,width=30,font=my_font1) 
     l5.grid(row=0,column=1,columnspan=4)
-    l5.place(relx = 0.5, rely = 0.6, anchor= CENTER) 
+    l5.place(relx = 0.5, rely = 0.8, anchor= CENTER) 
     
     l6 = tk.Label(root,text=message['content'],width=200,font=my_font2) 
     l6.grid(row=0,column=1,columnspan=20)
