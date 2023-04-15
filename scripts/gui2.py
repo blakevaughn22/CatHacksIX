@@ -19,6 +19,7 @@ def newmain():
     my_w.title('CatHacks IX')
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
+    my_font2=('Comic Sans MS', 64)
 
     # robot
     filename = './images/IMG_2144.png'
@@ -32,7 +33,7 @@ def newmain():
     e1['image']=img # Show Image 
 
 
-    l1 = tk.Label(my_w,text='Planetary AI and Learning System (PALS)',width=40,font=my_font1, bg ='blue') 
+    l1 = tk.Label(my_w,text='Planetary AI and Learning System (PALS)',width=40,font=my_font1, bg ='blue', fg = 'white') 
     l1.grid(row=0,column=1,columnspan=4)
     l1.place(relx = 0.75, rely = 0.1, anchor= CENTER) 
 
