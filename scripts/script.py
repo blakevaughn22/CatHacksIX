@@ -20,7 +20,8 @@ def main(planet):
         ])
 
     message = response.choices[0]['message']
-    print("Fun Facts!\n {}".format(message['content']))
+    # print("Fun Facts!\n {}".format(message['content']))
+    return message
 
 
 if __name__ == '__main__':
