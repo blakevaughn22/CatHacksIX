@@ -3,6 +3,7 @@ import torch.nn as nn
 import torchvision
 import torchvision.transforms as transforms
 from torchvision.datasets import ImageFolder
+from PIL import Image
 
 class ConvNeuralNet(nn.Module):
 	#  Determine what layers and their order in CNN object 
@@ -47,25 +48,59 @@ all_transforms = transforms.Compose([transforms.Resize((256,144)),
 batch_size = 60
 num_classes = 11
 
-test_dataset = ImageFolder(root="./test", transform=all_transforms)
-
-test_loader = torch.utils.data.DataLoader(dataset = test_dataset,
-                                           batch_size = batch_size,
-                                           shuffle = True)
-
 model = ConvNeuralNet(num_classes)
-model.load_state_dict(torch.load('model_epochs/model_epoch_25'))
-model.eval()
+model.load_state_dict(torch.load('model_epochs/model_epoch_best'))
 
+
+image = Image.open('./test/Earth/Earth (17).jpg')
+
+image_tensor = all_transforms(image)
+
+image_tensor = image_tensor.unsqueeze(0)
+
+output = model(image_tensor)
+
+_, predicted = torch.max(output.data, 1)
+
+print(predicted[0])
+
+
+quit()
+
+
+
+
+def test_image(Image_path, model):
+
+    model = ConvNeuralNet(num_classes)
+    model.load_state_dict(torch.load('model_epochs/model_epoch_best'))
+
+    # test phase
+    model.eval()
+
+    # convert image to torch tensor and add batch dim
+    batch = torch.tensor(Image / 255).unsqueeze(0)
+
+    # We don't need gradients for test, so wrap in 
+    # no_grad to save memory
+    with torch.no_grad():
+        batch = batch.to(device)
+
+        # forward propagation
+        output = model( batch )
+
+        # get prediction
+        output = torch.max(output.data, 1)
+
+    return output
+
+#Turn off gradient calculations
 with torch.no_grad():
-    correct = 0
-    total = 0
-    for images, labels in test_loader:
-        images = images.to(device)
-        labels = labels.to(device)
-        outputs = model(images)
-        _, predicted = torch.max(outputs.data, 1)
-        total += labels.size(0)
-        correct += (predicted == labels).sum().item()
     
-    print('Accuracy: {} %'.format(100 * correct / total))
+    #Place image data in cpu
+    test_image = test_image.to(device)
+    #Get output of model
+    output = model(test_image)
+    print(output)
+    _, predicted = torch.max(output.data, 1)
+    
