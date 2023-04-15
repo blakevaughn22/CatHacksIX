@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter.filedialog import askopenfile
 from PIL import Image, ImageTk
-
+import os,sys
 
 def main():
     my_w = tk.Tk()
@@ -67,6 +67,7 @@ def classify():
     root = tk.Toplevel()
     # Adjust size
     root.geometry("400x400")
+    runClass.main()
     b = tk.Button(root, text='Done', 
         width=20, font = my_font2, command = lambda:quit(root))
     b.grid(row=2,column=1)
