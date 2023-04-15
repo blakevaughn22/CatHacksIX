@@ -2,7 +2,6 @@
 import torch
 import torch.nn as nn
 import torchvision
-import cv2
 import torchvision.transforms as transforms
 from torchvision.datasets import ImageFolder
 
@@ -79,6 +78,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, weight_decay = 0.005, momentum = 0.9)  
 
 total_step = len(train_loader)
+best_loss = 9999
 
 print("Start Training")
 # We use the pre-defined number of epochs to determine how many iterations to train the network on
@@ -99,6 +99,10 @@ for epoch in range(num_epochs):
         optimizer.step()
         # print(i)
 
+    if(loss.item() < best_loss):
+        best_loss = loss.item()
+        torch.save(model.state_dict(), 'model_epochs/model_epoch_best')
+
     print('Epoch [{}/{}], Loss: {:.4f}'.format(epoch+1, num_epochs, loss.item()))
     torch.save(model.state_dict(), 'model_epochs/model_epoch_{}'.format(epoch+1))
 
@@ -115,4 +119,5 @@ with torch.no_grad():
         correct += (predicted == labels).sum().item()
     
     print('Accuracy: {} %'.format(100 * correct / total))
+
 
