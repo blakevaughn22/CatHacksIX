@@ -3,47 +3,53 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter.filedialog import askopenfile
 from PIL import Image, ImageTk
-
+import os,sys
 
 def main():
     my_w = tk.Tk()
-    my_w.geometry("700x700")  # Size of the window 
+    my_w.geometry("1000x700")  # Size of the window 
     my_w.title('CatHacks IX')
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
-    my_font3=('Comic Sans MS', 14)
 
     epochs = '2'
     accuracy = '99.6'
-
-    l1 = tk.Label(my_w,text='Upload Files & Train Models',width=30,font=my_font1)  
-    l2 = tk.Label(my_w,text='Current Model:\nEpochs:' + epochs + '\nAccuracy:' + accuracy +'%', font=my_font2)  
+  
+    l1 = tk.Label(my_w,text='Upload Files & Train Models',width=30,font=my_font1) 
+    l1.grid(row=0,column=1,columnspan=4)
+    l1.place(relx = 0.5, rely = 0.1, anchor= CENTER) 
 
     b1 = tk.Button(my_w, text='Upload File', 
         width=20, font = my_font2, command = lambda:upload_file(my_w))
-
-    b2 = tk.Button(my_w, text='Train Classification', 
-        width=20,font = my_font2, command = lambda:classify())
-
-    b3 = tk.Button(my_w, text='Go!', 
-        width=20,font = my_font3, command = lambda:go())
-
-    l1.grid(row=0,column=1,columnspan=4)
-    l2.grid(row=2,column=4)
     b1.grid(row=4,column=1)
-    b2.grid(row=3,column=4)
+    b1.place(relx = 0.5, rely = 0.6, anchor= CENTER) 
+    
+    b3 = tk.Button(my_w, text='Go!', bg = 'green', 
+        width=20,font = my_font2, command = lambda:go(img))
     b3.grid(row=1, column=1)
+    b3.place(relx = 0.5, rely = 0.2, anchor= CENTER) 
 
-    filename = 'Images/sample.png'
+    filename = 'Images/image_icon.png'
     img=Image.open(filename) # read the image file
-    img=img.resize((200,200)) # new width & height
+    img=img.resize((100,100)) # new width & height
     img=ImageTk.PhotoImage(img)
     e1 = tk.Label(my_w)
     e1.grid(row=2,column=1)
+    e1.place(relx=0.5, rely =0.4, anchor= CENTER)
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image 
 
+    l2 = tk.Label(my_w,text='Current Model:\nEpochs:' + epochs + '\nAccuracy:' + accuracy +'%', font=my_font2)  
+    l2.grid(row=2,column=4)
+    l2.place(relx = 0.8, rely = 0.4, anchor= CENTER) 
+    
+    b2 = tk.Button(my_w, text='Train Classification', 
+        width=20,font = my_font2, command = lambda:classify())
+    b2.grid(row=3,column=4)
+    b2.place(relx = 0.8, rely = 0.5, anchor= CENTER) 
+
     my_w.mainloop()  # Keep the window open 
+
 
 def upload_file(my_w):
     f_types = [('Jpg Files', '*.jpg'),
@@ -52,7 +58,7 @@ def upload_file(my_w):
     col=1 # start from column 1
     row=2 # start from row 3 
     img=Image.open(filename) # read the image file
-    img=img.resize((200,200)) # new width & height
+    img=img.resize((100,100)) # new width & height
     img=ImageTk.PhotoImage(img)
     e1 =tk.Label(my_w)
     e1.grid(row=row,column=col)
