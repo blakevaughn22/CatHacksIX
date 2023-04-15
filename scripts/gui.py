@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
+from tkinter.ttk import *
 from tkinter.filedialog import askopenfile
 from PIL import Image, ImageTk
 import os,sys
@@ -9,9 +10,12 @@ import script
 import test
 import imageResize
 
+
+
 def main():
     my_w = tk.Tk()
-    my_w.geometry("1000x700")  # Size of the window 
+    my_w.geometry("1400x800")  # Size of the window 
+    my_w.configure(bg='blue')
     my_w.title('CatHacks IX')
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
@@ -19,36 +23,36 @@ def main():
     epochs = '2'
     accuracy = '99.6'
   
-    l1 = tk.Label(my_w,text='Upload Files & Train Models',width=30,font=my_font1) 
+    l1 = tk.Label(my_w,text='Upload Files & Train Models',width=30,font=my_font1, bg ='blue') 
     l1.grid(row=0,column=1,columnspan=4)
     l1.place(relx = 0.5, rely = 0.1, anchor= CENTER) 
 
-    b1 = tk.Button(my_w, text='Upload File', 
+    b1 = tk.Button(my_w, text='Upload File', bg = 'red', height = 3,
         width=20, font = my_font2, command = lambda:upload_file(my_w))
     b1.grid(row=4,column=1)
-    b1.place(relx = 0.5, rely = 0.6, anchor= CENTER) 
+    b1.place(relx = 0.5, rely = 0.8, anchor= CENTER) 
     
-    b3 = tk.Button(my_w, text='Go!', bg = 'green', 
+    b3 = tk.Button(my_w, text='Go!', bg = 'green', height = 3,
         width=20,font = my_font2, command = lambda:go())
     b3.grid(row=1, column=1)
     b3.place(relx = 0.5, rely = 0.2, anchor= CENTER) 
 
     filename = '../GUI/Images/image_icon.png'
     img=Image.open(filename) # read the image file
-    img=img.resize((100,100)) # new width & height
+    img=img.resize((50,50)) # new width & height
     img=ImageTk.PhotoImage(img)
     e1 = tk.Label(my_w)
     e1.grid(row=2,column=1)
-    e1.place(relx=0.5, rely =0.4, anchor= CENTER)
+    e1.place(relx=0.5, rely =0.5, anchor= CENTER)
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image 
 
-    l2 = tk.Label(my_w,text='Current Model:\nEpochs:' + epochs + '\nAccuracy:' + accuracy +'%', font=my_font2)  
+    l2 = tk.Label(my_w,text='Current Model:\nEpochs:' + epochs + '\nAccuracy:' + accuracy +'%', font=my_font2, bg = 'blue')  
     l2.grid(row=2,column=4)
     l2.place(relx = 0.8, rely = 0.4, anchor= CENTER) 
     
-    b2 = tk.Button(my_w, text='Train Classification', 
-        width=20,font = my_font2, command = lambda:classify())
+    b2 = tk.Button(my_w, text='Train Classification', height = 3,
+        width=20,font = my_font2, bg = 'white', command = lambda:classify())
     b2.grid(row=3,column=4)
     b2.place(relx = 0.8, rely = 0.5, anchor= CENTER) 
 
@@ -62,11 +66,11 @@ def upload_file(my_w):
     col=1 # start from column 1
     row=2 # start from row 3 
     img=Image.open(filename) # read the image file
-    img=img.resize((100,100)) # new width & height
+    img=img.resize((256*2,144*2)) # new width & height
     img=ImageTk.PhotoImage(img)
     e1 =tk.Label(my_w)
     e1.grid(row=row,column=col)
-    e1.place(relx=0.5, rely =0.4, anchor= CENTER)
+    e1.place(relx=0.5, rely =0.5, anchor= CENTER)
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image   
     global url
@@ -78,8 +82,10 @@ def classify():
     my_font3=('Comic Sans MS', 14)
     # Execute tkinter
     root = tk.Toplevel()
+   
     # Adjust size
     root.geometry("1000x700")
+
     b = tk.Button(root, text='Done', 
         width=20, font = my_font2, command = lambda:quit(root))
     root.update_idletasks()
@@ -91,26 +97,27 @@ def go():
     # Execute tkinter
     root = tk.Toplevel()
     # Adjust size
-    root.geometry("1000x700")
+    root.geometry("1400x800")
     root.title('CatHacks IX')
+    root.configure(bg='blue')
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
     my_font3=('Comic Sans MS', 14)
 
-    b = tk.Button(root, text='Back to Main', 
+    b = tk.Button(root, text='Back to Main', bg = 'red',
         width=20, font = my_font2, command = lambda:quit(root))
     b.grid(row=1,column=1)
-    b.place(x=0,y=600)
+    b.place(x=0,y=700)
 
     imageResize.upscale_image(url)
     imageResize.resize_image("./images/upscaled.jpg")
     filename = "./images/upscaled.jpg"
     img=Image.open(filename) # read the image file
-    img=img.resize((200,200)) # new width & height
+    img=img.resize((256*3,144*3)) # new width & height
     img=ImageTk.PhotoImage(img)
     e1 = tk.Label(root)
     e1.grid(row=2,column=1)
-    e1.place(relx=0.5, rely =0.3, anchor= CENTER)
+    e1.place(relx=0.5, rely =0.4, anchor= CENTER)
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image 
     root.update_idletasks()
@@ -125,7 +132,7 @@ def go():
 
     l5 = tk.Label(root,text=pred,width=30,font=my_font1) 
     l5.grid(row=0,column=1,columnspan=4)
-    l5.place(relx = 0.5, rely = 0.5, anchor= CENTER) 
+    l5.place(relx = 0.5, rely = 0.6, anchor= CENTER) 
     
     l6 = tk.Label(root,text=message['content'],width=200,font=my_font2) 
     l6.grid(row=0,column=1,columnspan=20)
