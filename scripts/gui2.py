@@ -10,6 +10,7 @@ import script
 import test
 import imageResize
 import game
+import textwrap
 
 def newmain():
     my_w = tk.Tk()
@@ -31,7 +32,7 @@ def newmain():
     e1['image']=img # Show Image 
 
 
-    l1 = tk.Label(my_w,text='SpaceGPT',width=30,font=my_font1, bg ='blue') 
+    l1 = tk.Label(my_w,text='Planetary AI and Learning System (PALS)',width=40,font=my_font1, bg ='blue') 
     l1.grid(row=0,column=1,columnspan=4)
     l1.place(relx = 0.75, rely = 0.1, anchor= CENTER) 
 
@@ -144,14 +145,14 @@ def play_game():
     root.geometry("1000x700")
 
     lbl1 = tk.Label(root, text = "Question: ")
-    lbl1.pack(side = "top", padx=50, pady=100)
+    lbl1.pack(side = "top", padx=100, pady=50)
 
     inputtxt = tk.Text(root,
                    height = 1,
                    width = 20)
     inputtxt.pack(side="top",padx=50, pady=50)
 
-    lbl = tk.Label(root, text = "", bg="blue")
+    lbl = tk.Label(root, text = "")
     
 
     def getInput():
@@ -165,7 +166,7 @@ def play_game():
 
     def ask():
         ques = game.getQuestion()
-        lbl1.config(text = "Question: " + ques)
+        lbl1.config(text = "Question: " + ques,wraplength=500)
         lbl.config(text = "")
 
     printButton = tk.Button(root,
