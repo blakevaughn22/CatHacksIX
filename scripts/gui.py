@@ -7,6 +7,7 @@ import os,sys
 import nn
 import script
 import test
+import imageResize
 
 def main():
     my_w = tk.Tk()
@@ -99,7 +100,9 @@ def go():
         width=20, font = my_font2, command = lambda:quit(root))
     b.grid(row=1,column=1)
 
-    filename = url
+    imageResize.upscale_image(url)
+    imageResize.resize_image("./images/upscaled.jpg")
+    filename = "./images/upscaled.jpg"
     img=Image.open(filename) # read the image file
     img=img.resize((200,200)) # new width & height
     img=ImageTk.PhotoImage(img)
@@ -110,7 +113,9 @@ def go():
     root.update_idletasks()
     # message = script.main("Mars")
     # print("Fun Facts!\n {}".format(message['content']))
-    pred = test.test_image(url)
+
+    url2 = "./images/resized.jpg"
+    pred = test.test_image(url2)
     print("Prediction: {}".format(pred))
     message = script.main(pred)
     print("Fun Facts!\n {}".format(message['content']))

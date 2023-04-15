@@ -3,7 +3,7 @@ import openai
 def main(planet):
 
     # Set up the OpenAI API client
-    openai.api_key = "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"
+    openai.api_key = "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"
 
     # Set up the model and prompt
     model_engine = "gpt-3.5-turbo" 
