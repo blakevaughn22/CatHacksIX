@@ -71,11 +71,14 @@ def newmain():
 
 def main():
     my_w = tk.Toplevel()
-    my_w.geometry("1400x800")  # Size of the window 
+    my_w.geometry("2000x800")  # Size of the window 
     my_w.configure(bg='blue')
     my_w.title('CatHacks IX')
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
+    my_font2=('Comic Sans MS', 32)
+    my_w.attributes('-fullscreen',True)
+
 
     filename = './images/IMG_2146.png' # train button
     img=Image.open(filename) # read the image file
@@ -102,8 +105,8 @@ def main():
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image 
 
-    b3 = tk.Button(my_w, text='Go!', bg = 'green', height = 1,
-        width=3,font = my_font2, command = lambda:go())
+    b3 = tk.Button(my_w, text='Go!', bg = 'green', height = 2,
+        width=15,font = my_font2, command = lambda:go())
     b3.grid(row=1, column=1)
     b3.place(relx = 0.5, rely = 0.2, anchor= CENTER) 
 
@@ -132,18 +135,25 @@ def main():
     b2.grid(row=3,column=4)
     b2.place(relx = 0.8, rely = 0.5, anchor= CENTER) 
 
+    b = tk.Button(my_w, text='Back to Main', bg = 'red',
+    width=20, font = my_font2, command = lambda:quit(my_w))
+    b.place(relx = 0.1, rely = 0.9, anchor= CENTER)
+
     # my_w.mainloop()  # Keep the window open 
 
 def play_game():
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
     my_font3=('Comic Sans MS', 14)
+    # my_font2=('Comic Sans MS', 64)
+
     # Execute tkinter
     root = tk.Toplevel()
     root.configure(bg='blue')
    
     # Adjust size
-    root.geometry("1000x700")
+    root.geometry("1500x1500")
+    root.attributes('-fullscreen',True)
 
     lbl1 = tk.Label(root, text = "Question: ")
     lbl1.pack(side = "top", padx=100, pady=50)
@@ -184,6 +194,10 @@ def play_game():
     
     lbl.pack(side = "top",padx=50, pady=50)
 
+    b = tk.Button(root, text='Back to Main', bg = 'red',
+        width=20, font = my_font2, command = lambda:quit(root))
+    b.pack(side ='bottom', padx=50, pady=50)
+
     root.mainloop()
     ask()
 
@@ -208,6 +222,8 @@ def classify():
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
     my_font3=('Comic Sans MS', 14)
+    # my_font2=('Comic Sans MS', 64)
+
     # Execute tkinter
     root = tk.Toplevel()
     root.configure(bg='blue')
@@ -232,6 +248,8 @@ def go():
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
     my_font3=('Comic Sans MS', 14)
+    # my_font2=('Comic Sans MS', 64)
+
 
     b = tk.Button(root, text='Back to Main', bg = 'red',
         width=20, font = my_font2, command = lambda:quit(root))
@@ -246,7 +264,7 @@ def go():
     img=ImageTk.PhotoImage(img)
     e1 = tk.Label(root)
     e1.grid(row=2,column=1)
-    e1.place(relx=0.5, rely =0.4, anchor= CENTER)
+    e1.place(relx=0.5, rely =0.3, anchor= CENTER)
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image 
     root.update_idletasks()
@@ -261,11 +279,11 @@ def go():
 
     l5 = tk.Label(root,text=pred,width=30,font=my_font1) 
     l5.grid(row=0,column=1,columnspan=4)
-    l5.place(relx = 0.5, rely = 0.6, anchor= CENTER) 
+    l5.place(relx = 0.5, rely = 0.5, anchor= CENTER) 
     
-    l6 = tk.Label(root,text=message['content'],width=200,font=my_font2) 
+    l6 = tk.Label(root,text=message['content'],width=200,font=my_font2,wraplength=1000) 
     l6.grid(row=0,column=1,columnspan=20)
-    l6.place(relx = 0.5, rely = 0.7, anchor= CENTER) 
+    l6.place(relx = 0.5, rely = 0.8, anchor= CENTER) 
 
     root.mainloop()
    
