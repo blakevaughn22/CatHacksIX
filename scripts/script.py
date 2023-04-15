@@ -3,7 +3,7 @@ import openai
 def main(planet):
 
     # Set up the OpenAI API client
-    openai.api_key = "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"
+    openai.api_key = "API"
 
     # Set up the model and prompt
     model_engine = "gpt-3.5-turbo" 
@@ -20,7 +20,8 @@ def main(planet):
         ])
 
     message = response.choices[0]['message']
-    print("Fun Facts!\n {}".format(message['content']))
+    # print("Fun Facts!\n {}".format(message['content']))
+    return message
 
 
 if __name__ == '__main__':
