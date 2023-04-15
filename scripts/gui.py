@@ -5,7 +5,8 @@ from tkinter.filedialog import askopenfile
 from PIL import Image, ImageTk
 import os,sys
 import nn
-# import script
+import script
+import test
 
 def main():
     my_w = tk.Tk()
@@ -66,7 +67,9 @@ def upload_file(my_w):
     e1.grid(row=row,column=col)
     e1.place(relx=0.5, rely =0.4, anchor= CENTER)
     e1.image = img # keep a reference! by attaching it to a widget attribute
-    e1['image']=img # Show Image     
+    e1['image']=img # Show Image   
+    global url
+    url=filename
 
 def classify():
     my_font1=('Comic Sans MS', 18, 'bold')
@@ -96,7 +99,7 @@ def go():
         width=20, font = my_font2, command = lambda:quit(root))
     b.grid(row=1,column=1)
 
-    filename = '../GUI/Images/image1.png'
+    filename = url
     img=Image.open(filename) # read the image file
     img=img.resize((200,200)) # new width & height
     img=ImageTk.PhotoImage(img)
@@ -107,6 +110,10 @@ def go():
     root.update_idletasks()
     # message = script.main("Mars")
     # print("Fun Facts!\n {}".format(message['content']))
+    pred = test.test_image(url)
+    print("Prediction: {}".format(pred))
+    message = script.main(pred)
+    print("Fun Facts!\n {}".format(message['content']))
     root.mainloop()
    
 def quit(root):

@@ -11,7 +11,7 @@ def main():
     batch_size = 60
     num_classes = 11
     learning_rate = 0.001
-    num_epochs = 2
+    num_epochs = 25
 
     # Device will determine whether to run the training on GPU or CPU.
     # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
