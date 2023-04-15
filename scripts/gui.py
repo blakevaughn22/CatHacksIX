@@ -79,18 +79,19 @@ def classify():
     # Execute tkinter
     root = tk.Toplevel()
     # Adjust size
-    root.geometry("400x400")
+    root.geometry("1000x700")
     b = tk.Button(root, text='Done', 
         width=20, font = my_font2, command = lambda:quit(root))
     root.update_idletasks()
     nn.main()
     b.grid(row=2,column=1)
+    b.place(x=0,y=600)
 
 def go():
     # Execute tkinter
     root = tk.Toplevel()
     # Adjust size
-    root.geometry("600x600")
+    root.geometry("1000x700")
     root.title('CatHacks IX')
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
@@ -99,6 +100,7 @@ def go():
     b = tk.Button(root, text='Back to Main', 
         width=20, font = my_font2, command = lambda:quit(root))
     b.grid(row=1,column=1)
+    b.place(x=0,y=600)
 
     imageResize.upscale_image(url)
     imageResize.resize_image("./images/upscaled.jpg")
@@ -108,6 +110,7 @@ def go():
     img=ImageTk.PhotoImage(img)
     e1 = tk.Label(root)
     e1.grid(row=2,column=1)
+    e1.place(relx=0.5, rely =0.3, anchor= CENTER)
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image 
     root.update_idletasks()
@@ -119,6 +122,15 @@ def go():
     print("Prediction: {}".format(pred))
     message = script.main(pred)
     print("Fun Facts!\n {}".format(message['content']))
+
+    l5 = tk.Label(root,text=pred,width=30,font=my_font1) 
+    l5.grid(row=0,column=1,columnspan=4)
+    l5.place(relx = 0.5, rely = 0.5, anchor= CENTER) 
+    
+    l6 = tk.Label(root,text=message['content'],width=200,font=my_font2) 
+    l6.grid(row=0,column=1,columnspan=20)
+    l6.place(relx = 0.5, rely = 0.7, anchor= CENTER) 
+
     root.mainloop()
    
 def quit(root):
