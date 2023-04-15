@@ -19,29 +19,51 @@ def newmain():
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
 
+    # robot
+    filename = './images/IMG_2144.png'
+    img=Image.open(filename) # read the image file
+    img=img.resize((550,800)) # new width & height
+    img=ImageTk.PhotoImage(img)
+    e1 = tk.Label(my_w, borderwidth=0)
+    e1.grid(row=2,column=1)
+    e1.place(relx=0.3, rely =0.5, anchor= CENTER)
+    e1.image = img # keep a reference! by attaching it to a widget attribute
+    e1['image']=img # Show Image 
+
+
     l1 = tk.Label(my_w,text='SpaceGPT',width=30,font=my_font1, bg ='blue') 
     l1.grid(row=0,column=1,columnspan=4)
     l1.place(relx = 0.75, rely = 0.1, anchor= CENTER) 
 
-    b1 = tk.Button(my_w, text='Discover', bg = 'green', height = 3,
-        width=20, font = my_font2, command = lambda:main())
-    b1.grid(row=4,column=1)
-    b1.place(relx = 0.75, rely = 0.4, anchor= CENTER) 
-    
-    b3 = tk.Button(my_w, text='Play', bg = 'green', height = 3,
-        width=20,font = my_font2, command = lambda:play_game())
-    b3.grid(row=1, column=1)
-    b3.place(relx = 0.75, rely = 0.6, anchor= CENTER) 
-
-    filename = './images/IMG_2144.png'
+    filename = './images/IMG_2147.png'
     img=Image.open(filename) # read the image file
-    img=img.resize((600,900)) # new width & height
+    img=img.resize((300,200)) # new width & height
     img=ImageTk.PhotoImage(img)
-    e1 = tk.Label(my_w)
+    e1 = tk.Label(my_w, borderwidth=0)
     e1.grid(row=2,column=1)
-    e1.place(relx=0.25, rely =0.5, anchor= CENTER)
+    e1.place(relx=0.75, rely =0.4, anchor= CENTER)
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image 
+
+    b1 = tk.Button(my_w, text='Discover', bg = 'green', height = 1,
+        width=8, font = my_font2, command = lambda:main())
+    b1.grid(row=4,column=1)
+    b1.place(relx = 0.75, rely = 0.4, anchor= CENTER) 
+
+    filename = './images/IMG_2147.png'
+    img=Image.open(filename) # read the image file
+    img=img.resize((300,200)) # new width & height
+    img=ImageTk.PhotoImage(img)
+    e1 = tk.Label(my_w, borderwidth=0)
+    e1.grid(row=2,column=1)
+    e1.place(relx=0.75, rely =0.65, anchor= CENTER)
+    e1.image = img # keep a reference! by attaching it to a widget attribute
+    e1['image']=img # Show Image 
+
+    b3 = tk.Button(my_w, text='Play', bg = 'green', height = 1,
+        width=8,font = my_font2, command = lambda:play_game())
+    b3.grid(row=1, column=1)
+    b3.place(relx = 0.75, rely = 0.65, anchor= CENTER) 
 
     my_w.mainloop()  # Keep the window open 
 
@@ -53,20 +75,33 @@ def main():
     my_font1=('Comic Sans MS', 18, 'bold')
     my_font2=('Comic Sans MS', 12)
 
-    epochs = '2'
-    accuracy = '99.6'
-  
-    l1 = tk.Label(my_w,text='Upload Files & Train Models',width=30,font=my_font1, bg ='blue') 
-    l1.grid(row=0,column=1,columnspan=4)
-    l1.place(relx = 0.5, rely = 0.1, anchor= CENTER) 
+    filename = './images/IMG_2146.png' # train button
+    img=Image.open(filename) # read the image file
+    img=img.resize((250,150)) # new width & height
+    img=ImageTk.PhotoImage(img)
+    e1 = tk.Label(my_w, borderwidth=0)
+    e1.grid(row=2,column=1)
+    e1.place(relx=0.5, rely =0.8, anchor= CENTER)
+    e1.image = img # keep a reference! by attaching it to a widget attribute
+    e1['image']=img # Show Image 
 
-    b1 = tk.Button(my_w, text='Upload File', bg = 'red', height = 3,
-        width=20, font = my_font2, command = lambda:upload_file(my_w))
+    b1 = tk.Button(my_w, text='Upload File', bg = 'red', height = 1,
+        width=10, font = my_font2, command = lambda:upload_file(my_w))
     b1.grid(row=4,column=1)
     b1.place(relx = 0.5, rely = 0.8, anchor= CENTER) 
     
-    b3 = tk.Button(my_w, text='Go!', bg = 'green', height = 3,
-        width=20,font = my_font2, command = lambda:go())
+    filename = './images/IMG_2147.png'
+    img=Image.open(filename) # read the image file
+    img=img.resize((250,150)) # new width & height
+    img=ImageTk.PhotoImage(img)
+    e1 = tk.Label(my_w, borderwidth=0)
+    e1.grid(row=2,column=1)
+    e1.place(relx=0.5, rely =0.2, anchor= CENTER)
+    e1.image = img # keep a reference! by attaching it to a widget attribute
+    e1['image']=img # Show Image 
+
+    b3 = tk.Button(my_w, text='Go!', bg = 'green', height = 1,
+        width=3,font = my_font2, command = lambda:go())
     b3.grid(row=1, column=1)
     b3.place(relx = 0.5, rely = 0.2, anchor= CENTER) 
 
@@ -79,13 +114,19 @@ def main():
     e1.place(relx=0.5, rely =0.5, anchor= CENTER)
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image 
-
-    l2 = tk.Label(my_w,text='Current Model:\nEpochs:' + epochs + '\nAccuracy:' + accuracy +'%', font=my_font2, bg = 'blue')  
-    l2.grid(row=2,column=4)
-    l2.place(relx = 0.8, rely = 0.4, anchor= CENTER) 
     
-    b2 = tk.Button(my_w, text='Train Classification', height = 3,
-        width=20,font = my_font2, bg = 'white', command = lambda:classify())
+    filename = './images/IMG_2146.png' # train button
+    img=Image.open(filename) # read the image file
+    img=img.resize((250,150)) # new width & height
+    img=ImageTk.PhotoImage(img)
+    e1 = tk.Label(my_w, borderwidth=0)
+    e1.grid(row=2,column=1)
+    e1.place(relx=0.8, rely =0.5, anchor= CENTER)
+    e1.image = img # keep a reference! by attaching it to a widget attribute
+    e1['image']=img # Show Image 
+
+    b2 = tk.Button(my_w, text='Train Classification', height = 1,
+        width=15,font = my_font2, bg = 'red', command = lambda:classify())
     b2.grid(row=3,column=4)
     b2.place(relx = 0.8, rely = 0.5, anchor= CENTER) 
 
@@ -103,15 +144,16 @@ def play_game():
     root.geometry("1000x700")
 
     lbl1 = tk.Label(root, text = "Question: ")
-    lbl1.pack()
+    lbl1.pack(side = "top", padx=50, pady=100)
 
     inputtxt = tk.Text(root,
-                   height = 5,
+                   height = 1,
                    width = 20)
+    inputtxt.pack(side="top",padx=50, pady=50)
+
+    lbl = tk.Label(root, text = "", bg="blue")
     
 
-    inputtxt.pack()
-    lbl = tk.Label(root, text = "")
     def getInput():
         inp = inputtxt.get(1.0, "end-1c")
         ques = lbl1.cget("text")
@@ -129,16 +171,19 @@ def play_game():
     printButton = tk.Button(root,
                         text = "Check", 
                         command = getInput)
-    printButton.pack()
+   
+    printButton.pack(side="top", padx=50, pady=50)
 
     askButton = tk.Button(root,
                         text = "Ask", 
                         command = ask)
-    askButton.pack()
-    lbl.pack()
+    
+    askButton.pack(side = "top", padx=50, pady=50)
+    
+    lbl.pack(side = "top",padx=50, pady=50)
+
     root.mainloop()
     ask()
-
 
 def upload_file(my_w):
     f_types = [('Jpg Files', '*.jpg'),
