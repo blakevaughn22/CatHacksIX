@@ -5,7 +5,7 @@ from tkinter.filedialog import askopenfile
 from PIL import Image, ImageTk
 import os,sys
 import nn
-import script
+# import script
 
 def main():
     my_w = tk.Tk()
@@ -105,8 +105,8 @@ def go():
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image 
     root.update_idletasks()
-    message = script.main("Mars")
-    print("Fun Facts!\n {}".format(message['content']))
+    # message = script.main("Mars")
+    # print("Fun Facts!\n {}".format(message['content']))
     root.mainloop()
    
 def quit(root):
