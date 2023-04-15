@@ -4,44 +4,48 @@ from tkinter import filedialog
 from tkinter.filedialog import askopenfile
 from PIL import Image, ImageTk
 
-my_w = tk.Tk()
-my_w.geometry("700x700")  # Size of the window 
-my_w.title('CatHacks IX')
-my_font1=('Comic Sans MS', 18, 'bold')
-my_font2=('Comic Sans MS', 12)
-my_font3=('Comic Sans MS', 14)
 
-epochs = '2'
-accuracy = '99.6%'
+def main():
+    my_w = tk.Tk()
+    my_w.geometry("700x700")  # Size of the window 
+    my_w.title('CatHacks IX')
+    my_font1=('Comic Sans MS', 18, 'bold')
+    my_font2=('Comic Sans MS', 12)
+    my_font3=('Comic Sans MS', 14)
 
-l1 = tk.Label(my_w,text='Upload Files & Train Models',width=30,font=my_font1)  
-l2 = tk.Label(my_w,text='Current Model:\nEpochs:' + epochs + '\nAccuracy:' + accuracy +'%', font=my_font2)  
+    epochs = '2'
+    accuracy = '99.6'
 
-b1 = tk.Button(my_w, text='Upload File', 
-    width=20, font = my_font2, command = lambda:upload_file())
+    l1 = tk.Label(my_w,text='Upload Files & Train Models',width=30,font=my_font1)  
+    l2 = tk.Label(my_w,text='Current Model:\nEpochs:' + epochs + '\nAccuracy:' + accuracy +'%', font=my_font2)  
 
-b2 = tk.Button(my_w, text='Train Classification', 
-    width=20,font = my_font2, command = lambda:classify())
+    b1 = tk.Button(my_w, text='Upload File', 
+        width=20, font = my_font2, command = lambda:upload_file(my_w))
 
-b3 = tk.Button(my_w, text='Go!', 
-    width=20,font = my_font3, command = lambda:go())
+    b2 = tk.Button(my_w, text='Train Classification', 
+        width=20,font = my_font2, command = lambda:classify())
 
-l1.grid(row=0,column=1,columnspan=4)
-l2.grid(row=2,column=4)
-b1.grid(row=4,column=1)
-b2.grid(row=3,column=4)
-b3.grid(row=1, column=1)
+    b3 = tk.Button(my_w, text='Go!', 
+        width=20,font = my_font3, command = lambda:go())
 
-filename = 'Images/sample.png'
-img=Image.open(filename) # read the image file
-img=img.resize((200,200)) # new width & height
-img=ImageTk.PhotoImage(img)
-e1 = tk.Label(my_w)
-e1.grid(row=2,column=1)
-e1.image = img # keep a reference! by attaching it to a widget attribute
-e1['image']=img # Show Image  
+    l1.grid(row=0,column=1,columnspan=4)
+    l2.grid(row=2,column=4)
+    b1.grid(row=4,column=1)
+    b2.grid(row=3,column=4)
+    b3.grid(row=1, column=1)
 
-def upload_file():
+    filename = 'Images/sample.png'
+    img=Image.open(filename) # read the image file
+    img=img.resize((200,200)) # new width & height
+    img=ImageTk.PhotoImage(img)
+    e1 = tk.Label(my_w)
+    e1.grid(row=2,column=1)
+    e1.image = img # keep a reference! by attaching it to a widget attribute
+    e1['image']=img # Show Image 
+
+    my_w.mainloop()  # Keep the window open 
+
+def upload_file(my_w):
     f_types = [('Jpg Files', '*.jpg'),
     ('PNG Files','*.png')]   # type of files to select 
     filename = tk.filedialog.askopenfilename(filetypes=f_types)
@@ -55,18 +59,12 @@ def upload_file():
     e1.image = img # keep a reference! by attaching it to a widget attribute
     e1['image']=img # Show Image     
 
-def upscale():
-    # Execute tkinter
-    root = Tk()
-    # Adjust size
-    root.geometry("400x400")
-    b = tk.Button(root, text='Done', 
-        width=20, font = my_font2, command = lambda:quit(root))
-    b.grid(row=2,column=1)
-
 def classify():
+    my_font1=('Comic Sans MS', 18, 'bold')
+    my_font2=('Comic Sans MS', 12)
+    my_font3=('Comic Sans MS', 14)
     # Execute tkinter
-    root = Tk()
+    root = tk.Toplevel()
     # Adjust size
     root.geometry("400x400")
     b = tk.Button(root, text='Done', 
@@ -75,7 +73,7 @@ def classify():
 
 def go():
     # Execute tkinter
-    root = Tk()
+    root = tk.Toplevel()
     # Adjust size
     root.geometry("600x600")
     root.title('CatHacks IX')
@@ -87,8 +85,19 @@ def go():
         width=20, font = my_font2, command = lambda:quit(root))
     b.grid(row=1,column=1)
 
+    filename = 'Images/image1.png'
+    img=Image.open(filename) # read the image file
+    img=img.resize((200,200)) # new width & height
+    img=ImageTk.PhotoImage(img)
+    e1 = tk.Label(root)
+    e1.grid(row=2,column=1)
+    e1.image = img # keep a reference! by attaching it to a widget attribute
+    e1['image']=img # Show Image 
 
+    root.mainloop()
+   
 def quit(root):
     root.destroy()
 
-my_w.mainloop()  # Keep the window open
+if __name__ == '__main__':
+    main()
